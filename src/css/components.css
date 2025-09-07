@@ -288,12 +288,90 @@
     100% { transform: rotate(360deg); }
 }
 
+/* Modal improvements for mobile */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+    padding: 20px;
+}
+
+.modal > div {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-gray);
+    background: var(--light-gray);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.modal-body {
+    padding: var(--spacing-lg);
+}
+
+.modal-footer {
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-gray);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+    background: var(--light-gray);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .modal {
+        align-items: flex-start;
+        padding: 10px;
+        padding-top: 20px;
+    }
+    
+    .modal > div {
+        max-width: none;
+        width: 100%;
+        margin: 0;
+        border-radius: var(--radius-md);
+        max-height: calc(100vh - 40px);
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-footer {
+        flex-direction: column-reverse;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+        margin: 0;
+    }
+    
     .btn {
         min-width: auto;
-        padding: 10px 20px;
-        font-size: var(--font-size-sm);
+        padding: 14px 20px;
+        font-size: var(--font-size-base);
+        min-height: 48px;
     }
     
     .form-section {
@@ -397,6 +475,8 @@
     .search-box {
         min-width: auto;
         margin-bottom: var(--spacing-sm);
+        padding: 14px;
+        font-size: 16px;
     }
     
     /* Status badges mobile optimization */
