@@ -293,6 +293,12 @@
     .btn {
         min-width: auto;
         padding: 10px 20px;
+        font-size: var(--font-size-sm);
+    }
+    
+    .form-section {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
     }
     
     .form-grid {
@@ -302,23 +308,169 @@
     
     .form-actions {
         justify-content: center;
+        gap: var(--spacing-sm);
     }
     
+    .form-actions .btn {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    /* Mobile-first table approach */
+    .table-wrapper {
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+    
+    .data-table,
+    .data-table thead,
+    .data-table tbody,
+    .data-table th,
+    .data-table td,
+    .data-table tr {
+        display: block;
+    }
+    
+    .data-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    .data-table tr {
+        background: var(--white);
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-gray);
+        position: relative;
+    }
+    
+    .data-table tr:hover {
+        background: var(--white);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .data-table td {
+        border: none !important;
+        position: relative;
+        padding: 8px 0 8px 35%;
+        text-align: left;
+        word-wrap: break-word;
+        font-size: var(--font-size-sm);
+    }
+    
+    .data-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        width: 30%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: var(--text-dark);
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Actions column styling for mobile */
+    .data-table td:last-child {
+        padding: 15px 0 0 0;
+        text-align: center;
+    }
+    
+    .data-table td:last-child:before {
+        content: "";
+        display: none;
+    }
+    
+    /* Filter improvements for mobile */
     .filters {
         flex-direction: column;
         align-items: stretch;
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
     }
     
     .search-box {
         min-width: auto;
+        margin-bottom: var(--spacing-sm);
     }
     
-    .data-table {
+    /* Status badges mobile optimization */
+    .status-disponible,
+    .status-ocupado,
+    .status-pico-placa,
+    .status-mantenimiento {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}
+
+/* Extra small screens (480px and below) */
+@media (max-width: 480px) {
+    .form-section {
+        padding: var(--spacing-sm);
+    }
+    
+    .btn {
+        padding: 12px 16px;
+        font-size: var(--font-size-sm);
+        min-height: 44px; /* Ensure touch-friendly targets */
+    }
+    
+    .data-table tr {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .data-table td {
+        padding: 6px 0 6px 40%;
         font-size: 12px;
     }
     
-    .data-table th,
-    .data-table td {
-        padding: 8px;
+    .data-table td:before {
+        width: 35%;
+        font-size: 11px;
+    }
+    
+    .filters {
+        padding: var(--spacing-sm);
+    }
+    
+    .search-box {
+        padding: 10px;
+    }
+    
+    .alert {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .container {
+        min-height: 100vh;
+    }
+    
+    .header {
+        padding: var(--spacing-md);
+    }
+    
+    .header h1 {
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+    
+    .header p {
+        display: none; /* Hide subtitle in landscape */
+    }
+    
+    .nav-tab {
+        padding: 8px 12px;
+        font-size: var(--font-size-sm);
     }
 }

@@ -352,8 +352,13 @@ class EmployeeManager {
         if (this.filteredEmployees.length === 0) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="8" style="text-align: center; color: #666; padding: 20px;">
-                        ${this.employees.length === 0 ? 'No hay empleados registrados' : 'No se encontraron empleados con los filtros aplicados'}
+                    <td colspan="19" style="text-align: center; color: #666; padding: 20px;">
+                        <div style="font-size: 1.2em; margin-bottom: 10px;">
+                            ${this.employees.length === 0 ? '👥 No hay empleados registrados' : '🔍 No se encontraron empleados con los filtros aplicados'}
+                        </div>
+                        <div style="font-size: 0.9em; opacity: 0.7;">
+                            ${this.employees.length === 0 ? 'Complete el formulario de arriba para agregar el primer empleado' : 'Intente con otros criterios de búsqueda'}
+                        </div>
                     </td>
                 </tr>
             `;
@@ -424,36 +429,36 @@ class EmployeeManager {
         const exencionText = exencionIcons[exencion] || '❌';
         
         return `
-            <td style="font-weight: 500;">${employee.nombre}</td>
-            <td>${employee.cedula}</td>
-            <td>${employee.area || 'N/A'}</td>
-            <td>${employee.cargo || 'N/A'}</td>
-            <td style="font-weight: bold; color: #28a745;">${employee.codigoEmpleado || 'N/A'}</td>
-            <td style="font-weight: bold; color: #007bff;">${employee.placa}</td>
-            <td>${this.getVehicleTypeIcon(employee.tipoVehiculo)} ${employee.tipoVehiculo}</td>
-            <td style="font-size: 0.9em;">${employee.colorVehiculo || 'N/A'}</td>
-            <td style="font-size: 0.9em;">${picoPlacaDisplay}</td>
-            <td style="text-align: center;">${exencionText}</td>
-            <td style="font-size: 0.9em;">${estadoText}</td>
-            <td style="font-size: 0.9em;">${estadoHoyText}</td>
-            <td>${employee.telefono || 'N/A'}</td>
-            <td style="font-size: 0.8em;">${employee.email || 'N/A'}</td>
-            <td style="font-size: 0.9em;">${employee.jefeInmediato || 'N/A'}</td>
-            <td style="font-size: 0.8em; color: #dc3545;">${employee.contactoEmergencia || 'N/A'}</td>
-            <td style="font-weight: 500; color: #667eea;">${assignmentInfo}</td>
-            <td style="font-size: 0.9em;">${fechaIngreso}</td>
-            <td>
-                <div style="display: flex; gap: 5px;">
+            <td data-label="Nombre" style="font-weight: 500;">${employee.nombre}</td>
+            <td data-label="Cédula">${employee.cedula}</td>
+            <td data-label="Área">${employee.area || 'N/A'}</td>
+            <td data-label="Cargo">${employee.cargo || 'N/A'}</td>
+            <td data-label="Tarjeta" style="font-weight: bold; color: #28a745;">${employee.codigoEmpleado || 'N/A'}</td>
+            <td data-label="Placa" style="font-weight: bold; color: #007bff;">${employee.placa}</td>
+            <td data-label="Vehículo">${this.getVehicleTypeIcon(employee.tipoVehiculo)} ${employee.tipoVehiculo}</td>
+            <td data-label="Color" style="font-size: 0.9em;">${employee.colorVehiculo || 'N/A'}</td>
+            <td data-label="Pico y Placa" style="font-size: 0.9em;">${picoPlacaDisplay}</td>
+            <td data-label="Exención" style="text-align: center;">${exencionText}</td>
+            <td data-label="Estado" style="font-size: 0.9em;">${estadoText}</td>
+            <td data-label="Hoy" style="font-size: 0.9em;">${estadoHoyText}</td>
+            <td data-label="Teléfono">${employee.telefono || 'N/A'}</td>
+            <td data-label="Email" style="font-size: 0.8em;">${employee.email || 'N/A'}</td>
+            <td data-label="Jefe" style="font-size: 0.9em;">${employee.jefeInmediato || 'N/A'}</td>
+            <td data-label="Emergencia" style="font-size: 0.8em; color: #dc3545;">${employee.contactoEmergencia || 'N/A'}</td>
+            <td data-label="Parqueadero" style="font-weight: 500; color: #667eea;">${assignmentInfo}</td>
+            <td data-label="F. Ingreso" style="font-size: 0.9em;">${fechaIngreso}</td>
+            <td data-label="Acciones">
+                <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn btn-sm" onclick="employeeManager.viewEmployee(${employee.id})" 
-                            title="Ver detalles" style="background: #007bff; color: white; padding: 4px 8px; font-size: 0.8em;">
+                            title="Ver detalles" style="background: #007bff; color: white; padding: 6px 10px; font-size: 0.8em; min-width: auto;">
                         👁️
                     </button>
                     <button class="btn btn-sm" onclick="employeeManager.editEmployee(${employee.id})" 
-                            title="Editar" style="background: #28a745; color: white; padding: 4px 8px; font-size: 0.8em;">
+                            title="Editar" style="background: #28a745; color: white; padding: 6px 10px; font-size: 0.8em; min-width: auto;">
                         ✏️
                     </button>
                     <button class="btn btn-sm" onclick="employeeManager.deleteEmployee(${employee.id})" 
-                            title="Eliminar" style="background: #dc3545; color: white; padding: 4px 8px; font-size: 0.8em;">
+                            title="Eliminar" style="background: #dc3545; color: white; padding: 6px 10px; font-size: 0.8em; min-width: auto;">
                         🗑️
                     </button>
                 </div>
@@ -932,10 +937,19 @@ class EmployeeManager {
         modal.style.cssText = `
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
-            z-index: 1000;
+            z-index: 1000; padding: 10px; box-sizing: border-box;
         `;
         modal.innerHTML = `
-            <div style="background: white; border-radius: 10px; max-height: 90vh; overflow-y: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="
+                background: white; 
+                border-radius: 10px; 
+                max-height: 90vh; 
+                overflow-y: auto; 
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                width: 100%;
+                max-width: 800px;
+                position: relative;
+            ">
                 ${content}
             </div>
         `;
