@@ -1,0 +1,113 @@
+/* Base styles - Reset and typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color palette */
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #2c3e50, #34495e);
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --danger-gradient: linear-gradient(135deg, #e74c3c, #c0392b);
+    
+    /* Neutral colors */
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --border-gray: #e9ecef;
+    --text-dark: #2c3e50;
+    --text-muted: rgba(0, 0, 0, 0.6);
+    
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+    
+    /* Border radius */
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 15px;
+    --radius-pill: 20px;
+    
+    /* Shadows */
+    --shadow-sm: 0 5px 15px rgba(0,0,0,0.1);
+    --shadow-md: 0 10px 20px rgba(102, 126, 234, 0.3);
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Typography */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-sm: 0.9em;
+    --font-size-base: 1em;
+    --font-size-lg: 1.1em;
+    --font-size-xl: 1.2em;
+    --font-size-2xl: 2.5em;
+}
+
+html {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    padding: var(--spacing-lg);
+    color: var(--text-dark);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+    font-size: var(--font-size-2xl);
+}
+
+h2 {
+    font-size: var(--font-size-xl);
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-lg);
+}
+
+h3 {
+    font-size: var(--font-size-lg);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+    opacity: 0.9;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    
+    .nav-tabs,
+    .form-actions,
+    .btn {
+        display: none;
+    }
+}

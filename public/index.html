@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Parqueaderos</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/css/base.css">
+    <link rel="stylesheet" href="./src/css/components.css">
+    <link rel="stylesheet" href="./src/css/layout.css">
+    <link rel="stylesheet" href="./src/css/dashboard.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="./src/assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🅿️ Sistema de Gestión de Parqueaderos</h1>
+        </header>
+        
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="nav-tab" data-tab="empleados">👥 Empleados</button>
+            <button class="nav-tab" data-tab="parqueaderos">🅿️ Parqueaderos</button>
+            <button class="nav-tab" data-tab="asignaciones">📋 Asignaciones</button>
+            <button class="nav-tab" data-tab="disponibilidad">📅 Disponibilidad</button>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <div class="dashboard-cards">
+                    <div class="dashboard-card">
+                        <h3 id="totalParqueaderos">0</h3>
+                        <p>Total Parqueaderos</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 id="disponibles">0</h3>
+                        <p>Disponibles</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 id="ocupados">0</h3>
+                        <p>Ocupados</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 id="picoPlaca">0</h3>
+                        <p>En Pico y Placa</p>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <h3 class="table-title">🚨 Parqueaderos Disponibles Hoy</h3>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Parqueadero</th>
+                                    <th>Sótano</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Empleado</th>
+                                    <th>Motivo Disponibilidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="disponibilidadHoy"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Empleados Tab -->
+            <section id="empleados" class="tab-content">
+                <h2>👥 Gestión de Empleados</h2>
+                
+                
+                <form id="empleadoForm" class="form-section">
+                    <h3 style="margin-bottom: 20px; color: #333;">📝 Registro de Empleado</h3>
+                    
+                    <!-- Información Personal -->
+                    <fieldset style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                        <legend style="font-weight: bold; color: #667eea; padding: 0 10px;">👤 Información Personal</legend>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="nombreEmpleado">Nombre Completo: <span style="color: red;">*</span></label>
+                                <input type="text" id="nombreEmpleado" placeholder="Ej: Juan Carlos Pérez González" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cedulaEmpleado">Cédula de Ciudadanía: <span style="color: red;">*</span></label>
+                                <input type="text" id="cedulaEmpleado" placeholder="Ej: 1234567890" required pattern="[0-9]{8,12}">
+                            </div>
+                            <div class="form-group">
+                                <label for="emailEmpleado">Correo Electrónico:</label>
+                                <input type="email" id="emailEmpleado" placeholder="Ej: juan.perez@empresa.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefonoEmpleado">Teléfono Móvil:</label>
+                                <input type="tel" id="telefonoEmpleado" placeholder="Ej: 3001234567" pattern="[0-9]{10}">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefonoFijo">Teléfono Fijo (Opcional):</label>
+                                <input type="tel" id="telefonoFijo" placeholder="Ej: 6012345678">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información Laboral -->
+                    <fieldset style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                        <legend style="font-weight: bold; color: #667eea; padding: 0 10px;">🏢 Información Laboral</legend>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="areaEmpleado">Área/Departamento: <span style="color: red;">*</span></label>
+                                <select id="areaEmpleado" required>
+                                    <option value="">Seleccionar área</option>
+                                    <option value="Administración">Administración</option>
+                                    <option value="Contabilidad">Contabilidad</option>
+                                    <option value="Recursos Humanos">Recursos Humanos</option>
+                                    <option value="Sistemas/TI">Sistemas/TI</option>
+                                    <option value="Ventas">Ventas</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Operaciones">Operaciones</option>
+                                    <option value="Logística">Logística</option>
+                                    <option value="Servicio al Cliente">Servicio al Cliente</option>
+                                    <option value="Gerencia">Gerencia</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cargoEmpleado">Cargo/Posición:</label>
+                                <input type="text" id="cargoEmpleado" placeholder="Ej: Analista de Sistemas Senior">
+                            </div>
+                            <div class="form-group">
+                                <label for="codigoEmpleado">Número Tarjeta de proximidad:</label>
+                                <input type="text" id="codigoEmpleado" placeholder="Ej: EMP-001">
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaIngreso">Fecha de Ingreso:</label>
+                                <input type="date" id="fechaIngreso">
+                            </div>
+                            <div class="form-group">
+                                <label for="jefeInmediato">Jefe Inmediato:</label>
+                                <input type="text" id="jefeInmediato" placeholder="Ej: María González">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información del Vehículo -->
+                    <fieldset style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                        <legend style="font-weight: bold; color: #667eea; padding: 0 10px;">🚗 Información del Vehículo</legend>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="placaVehiculo">Placa del Vehículo: <span style="color: red;">*</span></label>
+                                <input type="text" id="placaVehiculo" placeholder="Ej: ABC123" style="text-transform: uppercase;" required pattern="[A-Z]{3}[0-9]{3}">
+                                <small style="color: #666; font-size: 0.8em;">Formato: ABC123 (3 letras + 3 números)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoVehiculo">Tipo de Vehículo: <span style="color: red;">*</span></label>
+                                <select id="tipoVehiculo" required>
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="carro">🚗 Automóvil/Carro</option>
+                                    <option value="moto">🏍️ Motocicleta</option>
+                                    <option value="bicicleta">🚲 Bicicleta</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="marcaVehiculo">Marca del Vehículo:</label>
+                                <input type="text" id="marcaVehiculo" placeholder="Ej: Toyota, Honda, Yamaha">
+                            </div>
+                            <div class="form-group">
+                                <label for="modeloVehiculo">Modelo del Vehículo:</label>
+                                <input type="text" id="modeloVehiculo" placeholder="Ej: Corolla, Civic, YZF">
+                            </div>
+                            <div class="form-group">
+                                <label for="colorVehiculo">Color del Vehículo:</label>
+                                <select id="colorVehiculo">
+                                    <option value="">Seleccionar color</option>
+                                    <option value="Blanco">Blanco</option>
+                                    <option value="Negro">Negro</option>
+                                    <option value="Gris">Gris</option>
+                                    <option value="Azul">Azul</option>
+                                    <option value="Rojo">Rojo</option>
+                                    <option value="Verde">Verde</option>
+                                    <option value="Amarillo">Amarillo</option>
+                                    <option value="Plateado">Plateado</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información Pico y Placa -->
+                    <fieldset style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                        <legend style="font-weight: bold; color: #667eea; padding: 0 10px;">🚦 Restricción Pico y Placa</legend>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="picoPlacaEmpleado">Días de Restricción:</label>
+                                <select id="picoPlacaEmpleado">
+                                    <option value="">🤖 Automático (según último dígito de placa)</option>
+                                    <option value="lunes">Lunes (placas terminadas en 1-2)</option>
+                                    <option value="martes">Martes (placas terminadas en 3-4)</option>
+                                    <option value="miércoles">Miércoles (placas terminadas en 5-6)</option>
+                                    <option value="jueves">Jueves (placas terminadas en 7-8)</option>
+                                    <option value="viernes">Viernes (placas terminadas en 9-0)</option>
+                                    <option value="lunes,miercoles">Lunes y Miércoles</option>
+                                    <option value="martes,jueves">Martes y Jueves</option>
+                                    <option value="lunes,miercoles,viernes">Lunes, Miércoles y Viernes</option>
+                                    <option value="sin_restriccion">Sin restricción de pico y placa</option>
+                                </select>
+                                <small style="color: #666; font-size: 0.8em;">
+                                    💡 El sistema calculará automáticamente según la placa. Seleccionar solo si hay restricciones especiales.
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exencionPicoPlaca">Exención de Pico y Placa:</label>
+                                <select id="exencionPicoPlaca">
+                                    <option value="no">No tiene exención</option>
+                                    <option value="discapacidad">Por discapacidad</option>
+                                    <option value="medico">Personal médico</option>
+                                    <option value="emergencia">Vehículo de emergencia</option>
+                                    <option value="diplomatico">Cuerpo diplomático</option>
+                                    <option value="otro">Otra exención</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Información Adicional -->
+                    <fieldset style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                        <legend style="font-weight: bold; color: #667eea; padding: 0 10px;">📋 Información Adicional</legend>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="contactoEmergencia">Contacto de Emergencia:</label>
+                                <input type="text" id="contactoEmergencia" placeholder="Ej: María Pérez - 3009876543">
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="tipoContrato">Tipo de Contrato:</label>
+                                <select id="tipoContrato">
+                                    <option value="">Seleccionar tipo</option>
+                                    <option value="indefinido">Término Indefinido</option>
+                                    <option value="fijo">Término Fijo</option>
+                                    <option value="prestacion_servicios">Prestación de Servicios</option>
+                                    <option value="temporal">Temporal</option>
+                                    <option value="practicante">Practicante</option>
+                                </select>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="estadoEmpleado">Estado del Empleado:</label>
+                                <select id="estadoEmpleado">
+                                    <option value="activo">✅ Activo</option>
+                                    <option value="vacaciones">🏖️ En Vacaciones</option>
+                                    <option value="incapacidad">🏥 Incapacidad</option>
+                                    <option value="licencia">📋 Licencia</option>
+                                    <option value="suspendido">⚠️ Suspendido</option>
+                                    <option value="inactivo">❌ Inactivo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="estadoHoyEmpleado">Estado Hoy:</label>
+                                <select id="estadoHoyEmpleado">
+                                    <option value="presente">✅ Presente</option>
+                                    <option value="ausente">❌ Ausente</option>
+                                    <option value="vacaciones">🏖️ Vacaciones</option>
+                                    <option value="incapacidad">🏥 Incapacidad</option>
+                                    <option value="licencia">📋 Licencia</option>
+                                    <option value="tarde">⏰ Llegó tarde</option>
+                                    <option value="remoto">🏠 Trabajo remoto</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="observacionesEmpleado">Observaciones:</label>
+                                <textarea id="observacionesEmpleado" rows="3" placeholder="Notas adicionales sobre el empleado, restricciones especiales, etc."></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <button type="submit" class="btn btn-primary">➕ Agregar Empleado</button>
+                </form>
+                
+                <div class="table-container">
+                    <h3 style="margin: 30px 0 20px 0;">📊 Lista de Empleados Registrados</h3>
+                    
+                    <div class="filters" style="display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap;">
+                        <!-- Fila principal de filtros y botones -->
+                        <div style="flex: 2; min-width: 250px;">
+                            <input type="text" class="search-box" id="buscarEmpleado" placeholder="🔍 Buscar por nombre, cédula, placa, área..." style="width: 100%;">
+                        </div>
+                        <div style="flex: 1; min-width: 140px;">
+                            <select id="filtroTipoVehiculo" style="width: 100%;">
+                                <option value="">🚗 Todos los vehículos</option>
+                                <option value="carro">🚗 Automóviles</option>
+                                <option value="moto">🏍️ Motocicletas</option>
+                                <option value="bicicleta">🚲 Bicicletas</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1; min-width: 140px;">
+                            <select id="filtroAreaEmpleado" style="width: 100%;">
+                                <option value="">🏢 Todas las áreas</option>
+                                <option value="Administración">Administración</option>
+                                <option value="Contabilidad">Contabilidad</option>
+                                <option value="Recursos Humanos">Recursos Humanos</option>
+                                <option value="Sistemas/TI">Sistemas/TI</option>
+                                <option value="Ventas">Ventas</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Operaciones">Operaciones</option>
+                                <option value="Logística">Logística</option>
+                                <option value="Servicio al Cliente">Servicio al Cliente</option>
+                                <option value="Gerencia">Gerencia</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1; min-width: 130px;">
+                            <select id="filtroEstadoEmpleado" style="width: 100%;">
+                                <option value="">👥 Todos los estados</option>
+                                <option value="activo">✅ Activos</option>
+                                <option value="vacaciones">🏖️ En Vacaciones</option>
+                                <option value="incapacidad">🏥 Incapacidad</option>
+                                <option value="licencia">📋 Licencia</option>
+                                <option value="suspendido">⚠️ Suspendidos</option>
+                                <option value="inactivo">❌ Inactivos</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                            <button class="btn btn-primary" onclick="employeeManager.showImportModal()" title="Importar desde Excel/CSV" style="padding: 8px 15px; white-space: nowrap;">
+                                📥 Importar
+                            </button>
+                            <button class="btn btn-secondary" onclick="employeeManager.exportToCSV()" title="Exportar a CSV" style="padding: 8px 15px; white-space: nowrap;">
+                                📊 Exportar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em;">
+                        <div>
+                            <strong>📊 Resumen:</strong> 
+                            <span style="margin-left: 10px;"><strong>Total:</strong> <span id="totalEmpleados" style="color: #007bff;">0</span></span>
+                            <span style="margin-left: 15px;"><strong>Activos:</strong> <span id="empleadosActivos" style="color: #28a745;">0</span></span>
+                            <span style="margin-left: 15px;"><strong>Con parqueadero:</strong> <span id="empleadosConParqueadero" style="color: #667eea;">0</span></span>
+                            <span style="margin-left: 15px;"><strong>Hoy con pico y placa:</strong> <span id="empleadosPicoPlacaHoy" style="color: #ffc107;">0</span></span>
+                        </div>
+                        <div style="font-size: 0.8em; color: #666;">
+                            Última actualización: <span id="ultimaActualizacion">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="table-wrapper" style="max-height: 500px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px;">
+                        <table class="data-table" style="margin: 0;">
+                            <thead style="position: sticky; top: 0; background: white; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                <tr>
+                                    <th style="min-width: 180px; text-align: left;">👤 Nombre Completo</th>
+                                    <th style="min-width: 100px;">🆔 Cédula</th>
+                                    <th style="min-width: 120px;">🏢 Área/Depto.</th>
+                                    <th style="min-width: 120px;">💼 Cargo</th>
+                                    <th style="min-width: 90px;">🎫 Tarjeta</th>
+                                    <th style="min-width: 80px;">🚗 Placa</th>
+                                    <th style="min-width: 100px;">🚙 Vehículo</th>
+                                    <th style="min-width: 90px;">🎨 Color</th>
+                                    <th style="min-width: 110px;">🚦 Pico y Placa</th>
+                                    <th style="min-width: 90px;">⚠️ Exención</th>
+                                    <th style="min-width: 80px;">📊 Estado</th>
+                                    <th style="min-width: 90px;">🔄 Hoy</th>
+                                    <th style="min-width: 110px;">📞 Teléfono</th>
+                                    <th style="min-width: 150px;">📧 Email</th>
+                                    <th style="min-width: 130px;">👤 Jefe Inmediato</th>
+                                    <th style="min-width: 120px;">🚨 Emergencia</th>
+                                    <th style="min-width: 100px;">🅿️ Parqueadero</th>
+                                    <th style="min-width: 100px;">📅 F. Ingreso</th>
+                                    <th style="min-width: 120px;">⚙️ Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaEmpleados">
+                                <tr>
+                                    <td colspan="19" style="text-align: center; padding: 40px; color: #666; font-style: italic;">
+                                        <div style="font-size: 1.2em; margin-bottom: 10px;">👥 No hay empleados registrados</div>
+                                        <div style="font-size: 0.9em;">Complete el formulario de arriba para agregar el primer empleado</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Leyenda -->
+                    <div style="background: linear-gradient(45deg, #e8f4f8, #f0f9ff); padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #007bff;">
+                        <div style="font-weight: bold; color: #007bff; margin-bottom: 8px;">🚦 Leyenda de Pico y Placa (Bogotá):</div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; font-size: 0.9em;">
+                            <div><strong>Lunes:</strong> Placas 1 - 2</div>
+                            <div><strong>Martes:</strong> Placas 3 - 4</div>
+                            <div><strong>Miércoles:</strong> Placas 5 - 6</div>
+                            <div><strong>Jueves:</strong> Placas 7 - 8</div>
+                            <div><strong>Viernes:</strong> Placas 9 - 0</div>
+                        </div>
+                        <div style="margin-top: 8px; font-size: 0.8em; color: #666; font-style: italic;">
+                            💡 El sistema calcula automáticamente el día de restricción según el último dígito de la placa del vehículo
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Parqueaderos Tab -->
+            <section id="parqueaderos" class="tab-content">
+                <h2>🅿️ Gestión de Parqueaderos</h2>
+                
+                
+                <form id="parqueaderoForm" class="form-section">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="numeroParqueadero">Número de Parqueadero:</label>
+                            <input type="text" id="numeroParqueadero" placeholder="Ej: S1-001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sotanoParqueadero">Sótano:</label>
+                            <select id="sotanoParqueadero" required>
+                                <option value="">Seleccionar</option>
+                                <option value="-1">Sótano -1</option>
+                                <option value="-3">Sótano -3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipoParqueadero">Tipo de Parqueadero:</label>
+                            <select id="tipoParqueadero" required>
+                                <option value="">Seleccionar</option>
+                                <option value="carro">Carro</option>
+                                <option value="moto">Moto</option>
+                                <option value="bicicleta">Bicicleta</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estadoParqueadero">Estado:</label>
+                            <select id="estadoParqueadero">
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="mantenimiento">Mantenimiento</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">➕ Agregar Parqueadero</button>
+                    </div>
+                </form>
+                
+                <div class="table-container">
+                    <div class="filters">
+                        <input type="text" class="search-box" id="buscarParqueadero" placeholder="🔍 Buscar parqueadero...">
+                        <select id="filtroSotano">
+                            <option value="">Todos los sótanos</option>
+                            <option value="-1">Sótano -1</option>
+                            <option value="-3">Sótano -3</option>
+                        </select>
+                        <select id="filtroTipoParqueadero">
+                            <option value="">Todos los tipos</option>
+                            <option value="carro">Carros</option>
+                            <option value="moto">Motos</option>
+                            <option value="bicicleta">Bicicletas</option>
+                        </select>
+                        <select id="filtroEstado">
+                            <option value="">Todos los estados</option>
+                            <option value="disponible">Disponibles</option>
+                            <option value="ocupado">Ocupados</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Sótano</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Empleado Asignado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaParqueaderos"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Asignaciones Tab -->
+            <section id="asignaciones" class="tab-content">
+                <h2>📋 Asignación de Parqueaderos</h2>
+                
+                <form id="asignacionForm" class="form-section">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="empleadoAsignacion">Empleado:</label>
+                            <select id="empleadoAsignacion" required>
+                                <option value="">Seleccionar empleado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="parqueaderoAsignacion">Parqueadero:</label>
+                            <select id="parqueaderoAsignacion" required>
+                                <option value="">Seleccionar parqueadero</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaInicio">Fecha Inicio:</label>
+                            <input type="date" id="fechaInicio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaFin">Fecha Fin (Opcional):</label>
+                            <input type="date" id="fechaFin">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">🎯 Asignar Parqueadero</button>
+                        <button type="button" id="asignacionAutomatica" class="btn btn-secondary">🤖 Asignación Automática</button>
+                    </div>
+                </form>
+                
+                <div class="table-container">
+                    <h3 class="table-title">📋 Asignaciones Activas</h3>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Parqueadero</th>
+                                    <th>Sótano</th>
+                                    <th>Tipo</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Estado Hoy</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaAsignaciones"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Disponibilidad Tab -->
+            <section id="disponibilidad" class="tab-content">
+                <h2>📅 Disponibilidad por Días</h2>
+                
+                <div class="form-section">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fechaConsulta">Seleccionar Fecha:</label>
+                            <input type="date" id="fechaConsulta">
+                        </div>
+                        <div class="form-group">
+                            <label for="filtroTipoDisponibilidad">Filtrar por Tipo:</label>
+                            <select id="filtroTipoDisponibilidad">
+                                <option value="">Todos</option>
+                                <option value="carro">Carros</option>
+                                <option value="moto">Motos</option>
+                                <option value="bicicleta">Bicicletas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filtroSotanoDisponibilidad">Filtrar por Sótano:</label>
+                            <select id="filtroSotanoDisponibilidad">
+                                <option value="">Todos</option>
+                                <option value="-1">Sótano -1</option>
+                                <option value="-3">Sótano -3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-cards">
+                    <div class="dashboard-card">
+                        <h3 id="disponiblesFecha">0</h3>
+                        <p>Disponibles</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 id="ocupadosFecha">0</h3>
+                        <p>Ocupados</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 id="picoPlacaFecha">0</h3>
+                        <p>Por Pico y Placa</p>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Parqueadero</th>
+                                    <th>Sótano</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Empleado Titular</th>
+                                    <th>Motivo Disponibilidad</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaDisponibilidad"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Alert Container -->
+    <div id="alertContainer" class="alert-container"></div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <!-- Scripts -->
+    <script type="module" src="./src/js/app.js"></script>
+</body>
+</html>
