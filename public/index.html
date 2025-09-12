@@ -14,87 +14,23 @@
     
     <!-- Favicon -->
     <link rel="icon" href="./src/assets/favicon.ico" type="image/x-icon">
-    
-    <!-- FUERZA CSS PARA HEADER Y NAV ESTÁTICOS -->
-    <style>
-        .header {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            z-index: 99999 !important;
-            width: 100% !important;
-        }
-        
-        .nav-tabs {
-            position: fixed !important;
-            top: 100px !important;
-            left: 0 !important;
-            right: 0 !important;
-            z-index: 99998 !important;
-            width: 100% !important;
-        }
-        
-        /* Sobrescribir cualquier media query */
-        @media (max-width: 768px) {
-            .header {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 99999 !important;
-                width: 100% !important;
-            }
-            
-            .nav-tabs {
-                position: fixed !important;
-                top: 100px !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 99998 !important;
-                width: 100% !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .header {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 99999 !important;
-                width: 100% !important;
-            }
-            
-            .nav-tabs {
-                position: fixed !important;
-                top: 100px !important;
-                left: 0 !important;
-                right: 0 !important;
-                z-index: 99998 !important;
-                width: 100% !important;
-            }
-        }
-    </style>
 </head>
-
-<!-- Header FUERA del body -->
-<header class="header" style="position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 99999 !important; width: 100% !important; background: linear-gradient(135deg, #2c3e50, #34495e) !important; color: white !important; padding: 30px !important; text-align: center !important; margin: 0 !important; box-sizing: border-box !important;">
-    <h1 style="font-size: 2.5em !important; margin: 0 !important; color: white !important;">🅿️ Sistema de Gestión de Parqueaderos</h1>
-</header>
-
-<!-- Navigation FUERA del body -->
-<nav class="nav-tabs" style="position: fixed !important; top: 100px !important; left: 0 !important; right: 0 !important; z-index: 99998 !important; width: 100% !important; background: #f8f9fa !important; border-bottom: 2px solid #e9ecef !important; display: flex !important; overflow-x: auto !important; margin: 0 !important; box-sizing: border-box !important;">
-    <button class="nav-tab active" data-tab="dashboard" style="flex: 1 !important; min-width: 120px !important; padding: 15px 20px !important; background: white !important; border: none !important; font-size: 1.1em !important; cursor: pointer !important; border-bottom: 3px solid #667eea !important; color: #667eea !important; font-weight: bold !important;">📊 Dashboard</button>
-    <button class="nav-tab" data-tab="empleados" style="flex: 1 !important; min-width: 120px !important; padding: 15px 20px !important; background: none !important; border: none !important; font-size: 1.1em !important; cursor: pointer !important; border-bottom: 3px solid transparent !important; color: #2c3e50 !important;">👥 Empleados</button>
-    <button class="nav-tab" data-tab="parqueaderos" style="flex: 1 !important; min-width: 120px !important; padding: 15px 20px !important; background: none !important; border: none !important; font-size: 1.1em !important; cursor: pointer !important; border-bottom: 3px solid transparent !important; color: #2c3e50 !important;">🅿️ Parqueaderos</button>
-    <button class="nav-tab" data-tab="asignaciones" style="flex: 1 !important; min-width: 120px !important; padding: 15px 20px !important; background: none !important; border: none !important; font-size: 1.1em !important; cursor: pointer !important; border-bottom: 3px solid transparent !important; color: #2c3e50 !important;">📋 Asignaciones</button>
-    <button class="nav-tab" data-tab="disponibilidad" style="flex: 1 !important; min-width: 120px !important; padding: 15px 20px !important; background: none !important; border: none !important; font-size: 1.1em !important; cursor: pointer !important; border-bottom: 3px solid transparent !important; color: #2c3e50 !important;">📅 Disponibilidad</button>
-</nav>
-
 <body>
-
-    <div class="container">        
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🅿️ Sistema de Gestión de Parqueaderos</h1>
+        </header>
+        
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="nav-tab" data-tab="empleados">👥 Empleados</button>
+            <button class="nav-tab" data-tab="parqueaderos">🅿️ Parqueaderos</button>
+            <button class="nav-tab" data-tab="asignaciones">📋 Asignaciones</button>
+            <button class="nav-tab" data-tab="disponibilidad">📅 Disponibilidad</button>
+        </nav>
+        
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard Tab -->
